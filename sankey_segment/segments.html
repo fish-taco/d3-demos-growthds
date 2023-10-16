@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<title>painting a picture of user segments</title>
+
+  	<link href="bootstrap-responsive.css" rel="stylesheet">
+    <link href="lavish.css" rel="stylesheet" media="screen">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="sankey_org.js"></script>
+    <script src="linkremoval.js"></script>
+    <style>
+          #chart{
+                font-family: "Pontano Sans", bold;
+                font-size: 16px;
+                bottom: 0px;
+                height: 600px;
+                width: 1000px;
+                }
+          #clustable{
+                font-size
+                }
+          .row {
+                position: relative;
+                }
+          #talk1 {
+                position: relative;
+                bottom: 0px;
+                top: 50px;
+                left: -20px;
+                }
+          #talk2 {
+                position: relative;
+                bottom: 65px;
+                top: 200px;
+                left: 45px;
+                }
+          .span3 {
+                position: relative;
+                top: -0px;
+                left: -100px;
+                }
+          .span7 {
+                position: relative;
+                left: 0px;
+                }
+          .span6 {
+                font-family: "Pontano Sans";
+                font-size: 24px;
+                color: black;
+                }
+          .sections{
+                font-family: "Amatic SC";
+                top:10px;
+                font-size: 50px;
+                line-height: 1;
+                }
+
+
+          p {
+                font-family: "Pontano Sans";
+                font-size: 20px;
+                color: black;
+          }
+          .innerText {
+                font-family: "Century Schoolbook";
+                font-size: 12px;
+                color: black;
+          }
+          .oval-quotes p {
+                color:#fff;
+              }
+          h1 {
+                font-family: "Amatic SC";
+                font-size: 50px;
+              }
+          #clicked {
+                    stroke-opacity: .5;
+              }
+/*          #unclicked {
+                    stroke-opacity: .05;
+              }*/
+          .axis path,
+          .axis line {
+              fill: none;
+              stroke: black;
+              shape-rendering: crispEdges;
+              margin-left:60px;
+          }
+          .axis text {
+              font-family: sans-serif;
+              font-size: 11px;
+          }
+
+          .node text {
+	pointer-events: none;
+	text-shadow: 0 1px 0 #fff;
+	}
+
+.link {
+	fill: none;
+	stroke: #000;
+	stroke-opacity: .05;
+	}
+
+.link:hover {
+	stroke-opacity: .5;
+	}
+h1 {
+	font-size: 236px;
+	margin-top: .3em;
+	margin-bottom: 0;
+	}
+
+h1 + h2 {
+    text-rendering: optimizeLegibility;
+	margin-top: 0;
+	}
+
+h2 {
+	font-weight: 400;
+	font-size: 66px;
+	}
+    </style>
+</head>
+<body>
+
+<center><h1 class="sections">Visualizating user engagement Over Time</h1></center>
+    <div class="row-fluid">
+        <div class="span4" align="left" style="font-size:14pt;font-family:'Pontano Sans';color:black">
+          <br>
+          User population was clustered at each monthly interval to identify key groupings across Cohorts.
+            <li style="margin-top:10px;font-size:13pt;font-family:'Pontano Sans';color:black;margin-left:40px"> Amount of listings </li>
+            <li style="font-size:13pt;font-family:'Pontano Sans';color:black;margin-left:40px"> Purchase of VAS </li>
+            <li style="font-size:13pt;font-family:'Pontano Sans';color:black;margin-left:40px"> B2C/C2C </li>
+            <li style="margin-bottom:0px;font-size:13pt;font-family:'Pontano Sans';color:black;margin-left:40px"> Platform usage stickiness (Dau/Mau) </li>
+        </div>
+        </div>
+
+      <br>
+
+
+      <div class="row-fluid">
+            <div class="span12" align="center">
+              <div id="chart">
+
+                <p id="clustable" style="margin-bottom:-20px;margin-top:45px;margin-left:0px">Mouse over a node to see cluster information</p>
+                <p id="clusdesc" class="span3 offset5" style="margin-bottom:-300px;margin-top:45px"></p>
+                <p id="instructions" class="span3 offset8" style="margin-bottom:-300px;margin-top:45px"></p>
+              </div>
+                <p id="joined" style="margin-bottom:-10px;margin-top:0px;margin-left:-800px"></p>
+                <p id="depart" style="margin-bottom:-15px;margin-top:-20px;margin-left:800px"></p>
+                <p id="pcount"  style="margin-bottom:-10px;margin-top:-20px;margin-left:0px"></p>
+                <p id="onclick" style="margin-bottom:-10px;margin-top:20px;margin-left:0px"></p>
+          </div>
+        </div>
+<br />
+
+<div id="chart">
+</div>
+
+</body>
+</html>

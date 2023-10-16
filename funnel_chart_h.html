@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SVG Funnel Graph Example</title>
+    <!-- <link href="https://www.cssscript.com/wp-includes/css/sticky.css" rel="stylesheet" type="text/css"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html, body {
+            min-height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: #393862;
+        }
+
+        .funnel {
+            margin: 24px auto;
+        }
+
+        .method-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 48px;
+        }
+
+        button {
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+        h1 { margin: 150px auto; text-align: center; }
+				.svg-funnel-js svg {
+    display: block
+}
+
+.svg-funnel-js .svg-funnel-js__labels {
+    position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0
+}
+
+.svg-funnel-js.svg-funnel-js--vertical .svg-funnel-js__labels {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column
+}
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");.svg-funnel-js {
+    display: block;
+    width: 800px;
+    height: 300px;
+    font-family: Open Sans,sans-serif
+}
+
+.svg-funnel-js .svg-funnel-js__container {
+    width: 100%;
+    height: 100%
+}
+
+.svg-funnel-js .svg-funnel-js__labels {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.svg-funnel-js .svg-funnel-js__labels .svg-funnel-js__label {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 0px;
+    flex: 1 1 0;
+    position: relative
+}
+
+.svg-funnel-js .svg-funnel-js__labels .svg-funnel-js__label .label__value {
+    font-size: 24px;
+    color: #fff;
+    line-height: 18px;
+    margin-bottom: 6px
+}
+
+.svg-funnel-js .svg-funnel-js__labels .svg-funnel-js__label .label__title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #21ffa2
+}
+
+.svg-funnel-js .svg-funnel-js__labels .svg-funnel-js__label .label__percentage {
+    font-size: 16px;
+    font-weight: 700;
+    color: #9896dc
+}
+
+.svg-funnel-js .svg-funnel-js__labels .svg-funnel-js__label .label__segment-percentages {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 100%;
+    left: 0;
+    padding: 8px 24px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: rgba(8,7,48,.8);
+    margin-top: 32px;
+    opacity: 0;
+    -webkit-transition: opacity .1s ease;
+    transition: opacity .1s ease;
+    cursor: default
+}
+
+.svg-funnel-js .svg-funnel-js__labels .svg-funnel-js__label .label__segment-percentages ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none
+}
+
+.svg-funnel-js .svg-funnel-js__labels .svg-funnel-js__label .label__segment-percentages ul li {
+    font-size: 16px;
+    line-height: 16px;
+    color: #fff;
+    margin: 24px 0
+}
+
+.svg-funnel-js .svg-funnel-js__labels .svg-funnel-js__label .label__segment-percentages ul li .percentage__list-label {
+    font-weight: 700;
+    color: #05df9d
+}
+
+.svg-funnel-js .svg-funnel-js__labels .svg-funnel-js__label:hover .label__segment-percentages {
+    opacity: 1
+}
+
+.svg-funnel-js:not(.svg-funnel-js--vertical) {
+    padding-top: 80px;
+    padding-bottom: 16px
+}
+
+.svg-funnel-js:not(.svg-funnel-js--vertical) .svg-funnel-js__label {
+    padding-left: 24px
+}
+
+.svg-funnel-js:not(.svg-funnel-js--vertical) .svg-funnel-js__label:not(:first-child) {
+    border-left: 1px solid #9896dc
+}
+
+.svg-funnel-js.svg-funnel-js--vertical {
+    width: 500px;
+    height: 800px;
+    padding-left: 120px;
+    padding-right: 16px
+}
+
+.svg-funnel-js.svg-funnel-js--vertical .svg-funnel-js__label {
+    padding-top: 24px
+}
+
+.svg-funnel-js.svg-funnel-js--vertical .svg-funnel-js__label:not(:first-child) {
+    border-top: 1px solid #9896dc
+}
+
+.svg-funnel-js.svg-funnel-js--vertical .label__segment-percentages .segment-percentage__list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around
+}
+
+.svg-funnel-js .svg-funnel-js__subLabels {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-top: 24px
+}
+
+.svg-funnel-js .svg-funnel-js__subLabels .svg-funnel-js__subLabel {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 12px;
+    color: #fff;
+    line-height: 16px
+}
+
+.svg-funnel-js .svg-funnel-js__subLabels .svg-funnel-js__subLabel:not(:first-child) {
+    margin-left: 16px
+}
+
+.svg-funnel-js .svg-funnel-js__subLabels .svg-funnel-js__subLabel .svg-funnel-js__subLabel--color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 2px 8px 2px 0
+}
+
+    </style>
+</head>
+<body>
+
+    <h1 style="font-family: Open Sans,sans-serif; color:white">Android</h1>
+    <div class="funnel">
+    </div>
+
+    <!-- <div class="method-buttons">
+        <button id="makeVertical">Make Vertical</button>
+        <button id="makeHorizontal">Make Horizontal</button>
+        <button id="toggleDirection">Toggle Direction</button>
+        <button id="gradientMakeVertical">Gradient Make Vertical</button>
+        <button id="gradientMakeHorizontal">Gradient Make Horizontal</button>
+        <button id="gradientToggleDirection">Gradient Toggle Direction</button>
+    </div> -->
+
+    <script src="funnel-graph.js"></script>
+    <script>
+        var dataExample1 = {
+            colors: ['#FFB178', '#FF3C8E'],
+            values: [5657956, 5759311, 22484]
+        };
+
+        var dataExample2 = {
+            labels: ['Impressions / 100', 'Ad Views / 10', 'Meaningful Conversations'],
+            colors: ['#FFB178', '#FF3C8E'],
+            values: [5657956, 5759311, 22484]
+        };
+
+        var dataExample3 = {
+            labels: ['Impressions / 100', 'Ad Views / 10', 'Meaningful Conversations'],
+            subLabels: ['Search', 'Category Browsing', 'Observed ads/ searches'],
+            colors: [
+                ['#FFB178', '#FF78B1', '#FF3C8E'],
+                ['#A0BBFF', '#EC77FF'],
+                ['#A0F9FF', '#7795FF']
+            ],
+            values: [
+                [932974, 2731714, 1993267],
+                [44179, 146681, 385070],
+                [484, 3271, 18729]
+            ]
+        };
+
+        var graph = new FunnelGraph({
+            container: '.funnel',
+            gradientDirection: 'horizontal',
+            data: dataExample3,
+            displayPercent: true,
+            direction: 'vertical'
+        });
+
+        graph.draw();
+
+        // direction methods
+        // document.querySelector('#makeVertical').addEventListener('click', () => {
+        //     graph.makeVertical();
+        // });
+        //
+        // document.querySelector('#makeHorizontal').addEventListener('click', () => {
+        //     graph.makeHorizontal();
+        // });
+        //
+        // document.querySelector('#toggleDirection').addEventListener('click', () => {
+        //     graph.toggleDirection();
+        // });
+        //
+        // // gradient methods
+        // document.querySelector('#gradientMakeVertical').addEventListener('click', () => {
+        //     graph.gradientMakeVertical();
+        // });
+        //
+        // document.querySelector('#gradientMakeHorizontal').addEventListener('click', () => {
+        //     graph.gradientMakeHorizontal();
+        // });
+        //
+        // document.querySelector('#gradientToggleDirection').addEventListener('click', () => {
+        //     graph.gradientToggleDirection();
+        // });
+
+    </script>
+</body>
+</html>

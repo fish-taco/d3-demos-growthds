@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #847c77;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  fill: #847c77;
+}
+
+</style>
+
+<body>
+<button type="submit"  onClick="refreshPage()">Load again</button>
+
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="state-machines.js"></script>
+
+<script>
+
+function refreshPage(){
+    window.location.reload();
+}
+
+
+var width = 960
+var height = 500
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("viewBox", "0 -30 960 470")
+
+var color = d3.scaleOrdinal().range(["#aaa", "#CCDE66", "#F3A54A", "#4B90A6", '#ff0000'])
+
+// history chart axes
+
+var lines_margin = {top: 50, right: 25, bottom: 150, left: 500},
+    lines_width = width - lines_margin.left - lines_margin.right,
+    lines_height = height - lines_margin.top - lines_margin.bottom
+
+var x = d3.scaleLinear()
+    .domain([0,40])
+    .range([0, lines_width])
+
+var y = d3.scaleLinear()
+    .domain([0,300])
+    .range([lines_height, 0])
+
+var xAxis = d3.axisBottom()
+    .scale(x)
+
+var yAxis = d3.axisLeft()
+    .scale(y)
+
+var history_g = svg.append("g")
+    .attr("transform", "translate(" + lines_margin.left + "," + lines_margin.top + ")")
+
+var history_g_bars = history_g.append("g")
+
+var xa = history_g.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + lines_height + ")")
+xa
+  .append("line")
+    .attr("x1", x(0))
+    .attr("x2", x(40))
+    .attr("y1", 0)
+    .attr("y2", 0)
+xa
+  .append("text")
+    .attr("x", x(40))
+    .attr("dy", "1.5em")
+    .style("text-anchor", "end")
+    .text("time (in steps)")
+
+var ya = history_g.append("g")
+    .attr("class", "y axis")
+ya
+  .append("line")
+    .attr("x1", 0)
+    .attr("x2", 0)
+    .attr("y1", y(0))
+    .attr("y2", y(300))
+ya
+  .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("dy", "-0.5em")
+    .style("text-anchor", "end")
+    .text("number of Users in each state")
+
+// force graph
+
+var foci = [
+  {"text": "Initial", "x": 100, "y": -100},
+  {"text": "Browsing", "x": 100, "y": 170},
+  {"text": "Buying", "x": 250, "y": 250},
+  {"text": "Selling", "x": 350, "y": 100},
+  {"text": "Bouncing", "x": 350, "y": 300}
+]
+
+foci.forEach(function(d,i){
+  svg.append('text')
+      .attr("class", "state_count_" + i)
+      .attr("x", d.x)
+      .attr("y", d.y - 50)
+      .attr("fill", color(i))
+      .attr("text-anchor", "middle")
+      .text(foci[i].text)
+})
+
+var nodes = []
+
+var simulation = d3.forceSimulation()
+      .force("charge", d3.forceManyBody().strength(-2))
+      .force("x", d3.forceX(function(d){ return foci[d.state].x}).strength(0.1))
+      .force("y", d3.forceY(function(d){ return foci[d.state].y}).strength(0.1))
+      .nodes(nodes)
+      .alphaTarget(1)
+      .on("tick", ticked)
+
+function ticked() {
+  d3.selectAll(".node")
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; })
+}
+
+function restart() {
+
+  var node = svg.selectAll(".node").data(nodes, function(d) { return d.id;})
+
+  node.enter().append("circle")
+    .attr("class", "node")
+    .attr("stroke", "#333")
+    .attr("r", 4)
+    .style("opacity", 0)
+
+  node
+    .transition().delay(10).duration(0) // avoids strange hiccup
+      .attr("fill", function(d) { return color(d.state) })
+      .style("opacity", 1)
+
+  simulation.nodes(nodes)
+  simulation.alpha(1).restart()
+}
+
+// state transitions animation
+
+state_transitions(svg, history_g_bars, foci, color)
+
+</script>
